@@ -225,6 +225,17 @@ function showStuff(id) {
 
 }
 
+// Hide the viz tools
+var viz = document.getElementById('viz');
+var loading = document.getElementById('loading');
+viz.style.display = 'none';
+
+// Wait 5 seconds   
+setTimeout(function () {
+    viz.style.display = "block";
+    loading.style.display = "none";
+}, 5000);
+
 // Hide map for now 
 var canvas = document.getElementById('canvas');
 var map = document.getElementById('cartoMap');
