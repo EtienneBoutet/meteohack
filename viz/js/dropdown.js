@@ -16,7 +16,6 @@ function dropDown() {
 
 /* read all stations, filter based on data and add to the dropdown list */
 function populateDropdown() {
-  //console.log(allStations);
   filteredStations = allStations.features.filter( (data) => {
     let check = data.properties.FIRST_DATE.substring(0,4);
     return check < "1970";
