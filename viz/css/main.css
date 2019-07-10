@@ -29,13 +29,11 @@
 /*   display: inline-block; */
 /* } */
 
-#dropDownDiv {
-  vertical-align:middle;
-}
 #myDropdown {
   overflow: scroll;
   height: 400px;
 }
+
 .dropdown-content {
   display: none;
   position: absolute;
