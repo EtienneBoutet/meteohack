@@ -4,6 +4,10 @@ body {
     margin: auto;
 }
 
+#footer {
+    font-size: 10px;
+}
+
 .tab {
     border: none;
     margin: 10px;
@@ -15,6 +19,7 @@ body {
 
 .tab:hover {
     border-bottom: 6px solid #3498db;
+    background-color: none;
 }
 
 .dropbtn {
