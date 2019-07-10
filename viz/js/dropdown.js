@@ -18,8 +18,6 @@ function populateDropdown() {
   //console.log(allStations);
   filteredStations = allStations.features.filter( (data) => {
     let check = data.properties.FIRST_DATE.substring(0,4);
-    //console.log(check);
-    //console.log(check < "1970");
     return check < "1970";
   });
 
@@ -28,12 +26,24 @@ function populateDropdown() {
   filteredStations.forEach( (data) => {
     let name = data.properties.STATION_NAME;
     //console.log(data.properties.STATION_NAME);
-    let $a = $("<a>", {id: name}).text(name);
+    let $a = $("<a>", {id: name}).click(() => {
+      //console.log(name);
+      console.log(station_query);
+      
+      station_query = "https://geo.weather.gc.ca/geomet/features/collections/climate-monthly/items?&STATION_NAME=%22" + name + "%22";
+      console.log(station_query);
+      main();
+    }).text(name);
     //console.log($a);
     $dropdown.append($a);
   });
 }
 
+function clickStation(station) {
+  
+  //console.log(station.properties.STATION_NAME);
+  console.log(station);
+}
 
 /* use the search bar to filter stations */
 function filterFunction() {
