@@ -101,3 +101,9 @@ body {
     font-size: 20px;
     font-weight: bold;
 }
+
+.centered {
+  position: fixed; /* or absolute */
+  top: 50%;
+  left: 50%;
+}

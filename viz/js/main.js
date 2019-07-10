@@ -8,6 +8,8 @@ var current_station = "SASKATOON SRC";
 function updateStation(newStation) {
     current_station = newStation;
     station_query = station_query_prefix + current_station + "%22";
+    let $station = $("#currentDiv");
+    $station.text(current_station);
 }
 
 /**
@@ -214,8 +216,6 @@ function main() {
 
 // Set and show stuff depending on button pressed
 function showStuff(id) {
-    
-    console.log(id)
 
     var canvas = document.getElementById('canvas');
     var map = document.getElementById('cartoMap')
@@ -244,9 +244,9 @@ setTimeout(function () {
 }, 5000);
 
 // Hide map for now 
-//var canvas = document.getElementById('canvas');
-//var map = document.getElementById('cartoMap');
-//map.style.display = "none";
-//canvas.style.display = "block";
+var canvas = document.getElementById('canvas');
+var map = document.getElementById('cartoMap');
+map.style.display = "none";
+canvas.style.display = "block";
 
 main();
