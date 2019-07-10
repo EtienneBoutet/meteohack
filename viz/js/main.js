@@ -205,4 +205,30 @@ function main() {
 }
 
 
+// Set and show stuff depending on button pressed
+function showStuff(id) {
+    
+    console.log(id)
+
+    var canvas = document.getElementById('canvas');
+    var map = document.getElementById('cartoMap')
+    
+    if (id == map) {
+        canvas.style.display = "none";                
+        // This will regenerate the carto thingy
+        //map.src = "https://etienneboutet.carto.com/builder/4e530f7d-3a9a-4f85-8ba7-b0873baa8c46/embed"
+        map.style.display = "block";
+    } else {
+        canvas.style.display = "block";
+        map.style.display = "none";
+    }
+
+}
+
+// Hide map for now 
+var canvas = document.getElementById('canvas');
+var map = document.getElementById('cartoMap');
+map.style.display = "none";
+canvas.style.display = "block";
+
 main();
