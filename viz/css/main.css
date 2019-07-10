@@ -1,3 +1,22 @@
+body {
+    font-family: 'Literata', serif;
+    width: 1000px;
+    margin: auto;
+}
+
+.tab {
+    border: none;
+    margin: 10px;
+    margin-left: 0px;
+    padding: 10px;
+    background-color: none;
+    border-bottom: 6px solid #BFBFBF;
+}
+
+.tab:hover {
+    border-bottom: 6px solid #3498db;
+}
+
 .dropbtn {
   background-color: #4CAF50;
   color: white;
@@ -76,4 +95,9 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+#dateDiv {
+    font-size: 20px;
+    font-weight: bold;
 }
