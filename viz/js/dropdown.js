@@ -1,5 +1,7 @@
 var initialized = false; // resort to global variables for now...
-//var stationsQuery = "https://geo.weather.gc.ca/geomet/features/collections/climate-stations/items"
+/* Change station name to initial station */
+let $station = $("#dropdownbtn");
+$station.text(current_station);
 
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
@@ -28,21 +30,15 @@ function populateDropdown() {
     //console.log(data.properties.STATION_NAME);
     let $a = $("<a>", {id: name}).click(() => {
       //console.log(name);
+      updateStation(name); 
       console.log(station_query);
-      
-      station_query = "https://geo.weather.gc.ca/geomet/features/collections/climate-monthly/items?&STATION_NAME=%22" + name + "%22";
-      console.log(station_query);
+      let $station = $("#dropdownbtn");
+      $station.text(name);
+      dropDown(); 
       main();
     }).text(name);
-    //console.log($a);
     $dropdown.append($a);
   });
-}
-
-function clickStation(station) {
-  
-  //console.log(station.properties.STATION_NAME);
-  console.log(station);
 }
 
 /* use the search bar to filter stations */
