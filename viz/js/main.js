@@ -123,7 +123,7 @@ function main() {
         idx = 0;
         for(var i = 0; i < vertices.length; i++) {
             col = temp_to_color(vertices[i][1]);
-            console.log(col);
+            //console.log(col);
             colors[idx++] = col[0];
             colors[idx++] = col[1];
             colors[idx++] = col[2];

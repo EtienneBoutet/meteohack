@@ -2,13 +2,22 @@
 <html>
     <head>
         <meta charset="utf-8"/>
+	 <link rel="stylesheet" type="text/css" href="css/main.css">
         <title>Climate Visualization</title>
     </head>
     <body>
+	<div class="dropdown">
+	  <button onclick="dropDown()" class="dropbtn">Station</button>
+	  <div id="myDropdown" class="dropdown-content">
+	    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+	  </div>
+	</div>
         <canvas id="glCanvas" width="1280" height="900"></canvas>
 
         <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/106/three.js"></script>
         <script src="js/main.js"></script>
+        <script src="config/allStations.json"></script>
+        <script src="js/dropdown.js"></script>
     </body>
 </html>
