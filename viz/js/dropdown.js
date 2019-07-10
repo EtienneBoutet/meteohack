@@ -1,7 +1,6 @@
 var initialized = false; // resort to global variables for now...
 /* Change station name to initial station */
-let $station = $("#dropdownbtn");
-$station.text(current_station);
+updateStation(current_station);
 
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
@@ -31,11 +30,9 @@ function populateDropdown() {
     let $a = $("<a>", {id: name}).click(() => {
       //console.log(name);
       updateStation(name); 
-      console.log(station_query);
-      let $station = $("#dropdownbtn");
-      $station.text(name);
-      dropDown(); 
-      main();
+      //console.log(station_query);
+      dropDown(); // hide selector after selection
+      main(); // call main in our callback to redraw ;)
     }).text(name);
     $dropdown.append($a);
   });

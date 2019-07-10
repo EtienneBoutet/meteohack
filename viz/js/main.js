@@ -8,6 +8,8 @@ var current_station = "SASKATOON SRC";
 function updateStation(newStation) {
     current_station = newStation;
     station_query = station_query_prefix + current_station + "%22";
+    let $station = $("#currentDiv");
+    $station.text(current_station);
 }
 
 /**
