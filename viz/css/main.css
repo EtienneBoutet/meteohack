@@ -24,10 +24,10 @@
 
 #myInput:focus {outline: 3px solid #ddd;}
 
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
+/* .dropdown { */
+/*   position: relative; */
+/*   display: inline-block; */
+/* } */
 
 #dropDownDiv {
   vertical-align:middle;
