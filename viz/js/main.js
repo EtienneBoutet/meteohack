@@ -1,7 +1,7 @@
-// var station_query = "https://geo.weather.gc.ca/geomet/features/collections/climate-monthly/items?&STATION_NAME=%22SASKATOON SRC%22"
+var station_query = "https://geo.weather.gc.ca/geomet/features/collections/climate-monthly/items?&STATION_NAME=%22SASKATOON SRC%22"
 // var station_query = "https://geo.weather.gc.ca/geomet/features/collections/climate-monthly/items?&STATION_NAME=%22WRIGLEY A%22";
 // var station_query = "https://geo.weather.gc.ca/geomet/features/collections/climate-monthly/items?&STATION_NAME=%22TULITA A%22";
-var station_query = "https://geo.weather.gc.ca/geomet/features/collections/climate-monthly/items?&STATION_NAME=%22WOODSTOCK%22";
+// var station_query = "https://geo.weather.gc.ca/geomet/features/collections/climate-monthly/items?&STATION_NAME=%22WOODSTOCK%22";
 
 /**
  * Converts an HSL color value to RGB. Conversion formula
@@ -44,16 +44,18 @@ function temp_to_color(temp) {
 
     if (temp < 0) {
         h = 250 / 360;
-        l = 1 - (temp / -5);
+        l = (1 - (temp / -5)) ;
     } else if (temp >= 0) {
         h = 360 / 360;
-        l = 1 - (temp / 5);
+        l = (1 - (temp / 5)) ;
     }
 
     rgb = hslToRgb(h, s, l);
 
     return [rgb[0] / 255, rgb[1] / 255, rgb[2] / 255];
 }
+
+var dates = [];
 
 function parse_climate_data(data) {
     var temperature_values = [];
@@ -62,8 +64,8 @@ function parse_climate_data(data) {
             "temp": feat.properties.MEAN_TEMPERATURE,
             "date": feat.properties.LOCAL_DATE,
             "month": feat.properties.LOCAL_MONTH,
+            "normal": feat.properties.NORMAL_MEAN_TEMPERATURE
         });
-
     });
 
     temperature_values.sort(
@@ -74,9 +76,11 @@ function parse_climate_data(data) {
     for (let [index, val] of temperature_values.entries()) {
         var z = 4.0 * Math.cos((val.month / 12) * 2 * Math.PI);
         var x = 4.0 * Math.sin((val.month / 12) * 2 * Math.PI);
-        var y = val.temp / 10.0;
+        var y = (val.temp) / 10.0;
 
         vertices.push([x, y, z]);
+
+        dates.push(val.date);
     }
 
     return vertices;
@@ -103,43 +107,56 @@ function main() {
 
     var material = new THREE.LineBasicMaterial( { linewidth: 2, vertexColors: THREE.VertexColors} );
     var material_highlight = new THREE.LineBasicMaterial( { color: 0xffffff, linewidth: 4 });
+    var material_archive = new THREE.LineBasicMaterial( { color: 0x808080, linewidth: 1 });
+
     var geometry = new THREE.BufferGeometry();
     var geometry_highlight = new THREE.BufferGeometry();
+    var geometry_archive = new THREE.BufferGeometry();
+
     var drawCount = 2;
     var vertices_fetched = false;
     $.get( station_query, function( data ) {
         vertices = parse_climate_data(data);
 
-        var positions = new Float32Array(MAX_POINTS * 3);
-        var colors = new Float32Array(MAX_POINTS * 3);
 
         var idx = 0;
-        for(var i = 0; i < vertices.length; i++) {
-            positions[idx++] = vertices[i][0];
-            positions[idx++] = vertices[i][1];
-            positions[idx++] = vertices[i][2];
+        var positions_list = [];
+        for(var i = 0; i < vertices.length - 1; i++) {
+            positions_list[idx++] = vertices[i][0];
+            positions_list[idx++] = vertices[i][1];
+            positions_list[idx++] = vertices[i][2];
         }
+
+        var positions = new THREE.Float32BufferAttribute(positions_list, 3);
 
         idx = 0;
+        var colors_list = [];
         for(var i = 0; i < vertices.length; i++) {
             col = temp_to_color(vertices[i][1]);
-            console.log(col);
-            colors[idx++] = col[0];
-            colors[idx++] = col[1];
-            colors[idx++] = col[2];
+            colors_list[idx++] = col[0];
+            colors_list[idx++] = col[1];
+            colors_list[idx++] = col[2];
         }
+        var colors = new THREE.Float32BufferAttribute(colors_list, 3);
 
-        geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-        geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
+        geometry.addAttribute( 'position', positions);
+        geometry.addAttribute( 'color', colors);
         geometry.setDrawRange( 0, drawCount );
 
 
-        geometry_highlight.addAttribute('position', new THREE.BufferAttribute( positions, 3 ));
+        geometry_highlight.addAttribute('position', positions);
         geometry_highlight.setDrawRange(0, 1);
+
+        geometry_archive.addAttribute('position', positions);
+        geometry_archive.setDrawRange(0, 0);
+
         var line = new THREE.Line( geometry, material );
         var highlight = new THREE.LineSegments( geometry_highlight, material_highlight);
+        var archive = new THREE.LineSegments( geometry_archive, material_archive);
+
         scene.add(line);
         scene.add(highlight);
+        scene.add(archive);
 
         vertices_fetched = true;
     });
@@ -155,9 +172,20 @@ function main() {
     function animate() {
 	      requestAnimationFrame( animate );
 
+        var non_archive_draw = 10;
+
         if (vertices_fetched === true && skip % 3 == 0) {
-            geometry.setDrawRange(0, ++drawCount);
-            geometry_highlight.setDrawRange(drawCount - 2, 2);
+            drawCount += 1;
+
+            if (drawCount >= dates.length) {
+                drawCount = 0;
+            }
+
+            // geometry.setDrawRange(Math.max(drawCount - non_archive_draw, 0), non_archive_draw);
+            geometry.setDrawRange(0, drawCount);
+            geometry_highlight.setDrawRange(drawCount - 6, 6);
+            // geometry_archive.setDrawRange(Math.max(drawCount - non_archive_draw, 0), non_archive_draw);
+            // geometry_archive.setDrawRange(0, Math.max(drawCount - non_archive_draw, 0));
         }
 
         camera_angle += 0.01;
@@ -170,6 +198,8 @@ function main() {
 	      renderer.render( scene, camera );
 
         skip++;
+
+        $("#dateDiv").html(dates[drawCount]);
     }
     animate();
 }
