@@ -241,7 +241,7 @@ viz.style.display = 'none';
 setTimeout(function () {
     viz.style.display = "block";
     loading.style.display = "none";
-}, 5000);
+}, 2000);
 
 // Hide map for now 
 var canvas = document.getElementById('canvas');
