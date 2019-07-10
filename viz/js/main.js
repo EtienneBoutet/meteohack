@@ -207,8 +207,6 @@ function main() {
 
 // Set and show stuff depending on button pressed
 function showStuff(id) {
-    
-    console.log(id)
 
     var canvas = document.getElementById('canvas');
     var map = document.getElementById('cartoMap')
@@ -237,9 +235,9 @@ setTimeout(function () {
 }, 5000);
 
 // Hide map for now 
-//var canvas = document.getElementById('canvas');
-//var map = document.getElementById('cartoMap');
-//map.style.display = "none";
-//canvas.style.display = "block";
+var canvas = document.getElementById('canvas');
+var map = document.getElementById('cartoMap');
+map.style.display = "none";
+canvas.style.display = "block";
 
 main();
