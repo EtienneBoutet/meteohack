@@ -216,8 +216,6 @@ function main() {
 
 // Set and show stuff depending on button pressed
 function showStuff(id) {
-    
-    console.log(id)
 
     var canvas = document.getElementById('canvas');
     var map = document.getElementById('cartoMap')
