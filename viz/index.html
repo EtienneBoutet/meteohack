@@ -8,27 +8,42 @@
     </head>
     <body>
         <div id='loading' class="loader centered"></div>
+        <h1>Visualizing Climate Change</h1>
+        <p>Climate change one of the most critical challenge faced by Canadians in the country's history. We designed a series of visualizations to help us better understand it's growing prevalence. The visualizations use data provided by <a href="https://www.canada.ca/en/environment-climate-change.html">Environment and Climate Change Canada</a>. They were realized during the <a href="https://www.hackworks.com/en/meteohack">METEOHACK</a> hackathon.</p>
         <div id='viz'>
             <div id='viz'>
-                <button onclick="showStuff(canvas)">Show Canvas</button>
-                <button onclick="showStuff(cartoMap)">Show Map</button>
+                <button onclick="showStuff(canvas)">The evolution of temperatures through time</button>
+                <button onclick="showStuff(cartoMap)">Record breaking temperatures across Canada</button>
                 <br>
                 <div id='canvas'>
+                    <p>Visualisation of the temperature trends over a Canadian weather station.
+                        The data is arranged radially my month.
+                        The vertical axis displays temperature.
+                        As seasons go by, the average temperature goes up and down.
+                        For some stations, global warming causes the temperature to spin higher every year.</p>
                     <div id="dateDiv">Loading...</div>
+                    <div id="currentDiv">hello world</div >
 	                <div id="dropDownDiv" class="dropdown">
-                    <button onclick="dropDown()" class="dropbtn">Station</button>
+                    <button onclick="dropDown()" class="dropbtn">Select a weather station ▼</button>
                     <div id="myDropdown" class="dropdown-content">
                         <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
                     </div>
                     </div>
-                    <canvas id="glCanvas" width="1280" height="900"></canvas>        
+                    <canvas id="glCanvas" width="1280" height="900"></canvas>
                 </div>
                 <div id='cartoMap'>
+<<<<<<< HEAD
                     <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed ligula euismod erat molestie egestas a a arcu. Morbi in elit dolor. Curabitur sit amet risus ante. Nulla id commodo est. Fusce posuere pretium lorem eu ornare. Donec et facilisis turpis. Donec ornare dignissim convallis. Sed non lorem vitae dui posuere dictum in id tellus. Mauris fringilla ante suscipit lacus varius hendrerit. In pretium, arcu in feugiat vestibulum, ante elit bibendum purus, sit amet laoreet ipsum felis pulvinar metus. Aliquam erat volutpat.</h1>
                     <iframe width="100%" height="520" frameborder="0" src="https://etienneboutet.carto.com/builder/1341f4b1-b1dd-40db-8bc8-8d6ac6da4190/embed" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+=======
+                    <p>Time series visualization of maximum temperature trends in Canada.
+                        Every dot represent record temperatures at a station.
+                    The climatological data used here goes back as far as the early 1800's, and is plotted up to 2015.</p>
+                    <iframe width="100%" height="520" frameborder="0" src="https://etienneboutet.carto.com/builder/4e530f7d-3a9a-4f85-8ba7-b0873baa8c46/embed" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+>>>>>>> fc5c51a96ce58904c2e54bac01e922cc8e20de8a
                 </div>
             </div>
-        </div>        
+        </div>
         <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/106/three.js"></script>
         <script src="js/main.js"></script>

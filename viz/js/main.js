@@ -1,7 +1,16 @@
-var station_query = "https://geo.weather.gc.ca/geomet/features/collections/climate-monthly/items?&STATION_NAME=%22SASKATOON SRC%22"
+var station_query_prefix = "https://geo.weather.gc.ca/geomet/features/collections/climate-monthly/items?&STATION_NAME=%22";
+var station_query = "https://geo.weather.gc.ca/geomet/features/collections/climate-monthly/items?&STATION_NAME=%22SASKATOON SRC%22";
+var current_station = "SASKATOON SRC";
 // var station_query = "https://geo.weather.gc.ca/geomet/features/collections/climate-monthly/items?&STATION_NAME=%22WRIGLEY A%22";
 // var station_query = "https://geo.weather.gc.ca/geomet/features/collections/climate-monthly/items?&STATION_NAME=%22TULITA A%22";
 // var station_query = "https://geo.weather.gc.ca/geomet/features/collections/climate-monthly/items?&STATION_NAME=%22WOODSTOCK%22";
+
+function updateStation(newStation) {
+    current_station = newStation;
+    station_query = station_query_prefix + current_station + "%22";
+    let $station = $("#currentDiv");
+    $station.text(current_station);
+}
 
 /**
  * Converts an HSL color value to RGB. Conversion formula
